@@ -5,14 +5,7 @@ from ofxstatement.parser import StatementParser
 from ofxstatement.statement import Statement, StatementLine
 
 
-class SamplePlugin(Plugin):
-    """Sample plugin (for developers only)"""
-
-    def get_parser(self, filename: str) -> "SampleParser":
-        return SampleParser(filename)
-
-
-class SampleParser(StatementParser[str]):
+class CheBancaParser(StatementParser[str]):
     def __init__(self, filename: str) -> None:
         super().__init__()
         self.filename = filename
@@ -33,3 +26,10 @@ class SampleParser(StatementParser[str]):
     def parse_record(self, line: str) -> StatementLine:
         """Parse given transaction line and return StatementLine object"""
         return StatementLine()
+
+
+class CheBancaPlugin(Plugin):
+    """CheBanca! parser"""
+
+    def get_parser(self, filename: str) -> CheBancaParser:
+        return CheBancaParser(filename)

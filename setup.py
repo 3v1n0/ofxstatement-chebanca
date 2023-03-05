@@ -4,21 +4,21 @@
 from setuptools import find_packages
 from distutils.core import setup
 
-version = "0.0.1"
+version = "0.1"
 
-with open("README.rst") as f:
+with open("README.md") as f:
     long_description = f.read()
 
 setup(
-    name="ofxstatement-sample",
+    name="ofxstatement-chebanca",
     version=version,
-    author="Andrey Lebedev",
-    author_email="andrey@lebedev.lt",
-    url="https://github.com/kedder/ofxstatement",
-    description=("Sample plugin for ofxstatement"),
+    author="Marco Trevisan",
+    author_email="mail@3v1n0.net",
+    url="https://github.com/3v1n0/ofxstatement-chebanca",
+    description=("CheBanca! plugin for ofxstatement"),
     long_description=long_description,
     license="GPLv3",
-    keywords=["ofx", "banking", "statement"],
+    keywords=["ofx", "banking", "statement", "chebanca", "che-banca"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
@@ -33,7 +33,7 @@ setup(
     package_dir={"": "src"},
     namespace_packages=["ofxstatement", "ofxstatement.plugins"],
     entry_points={
-        "ofxstatement": ["sample = ofxstatement.plugins.sample:SamplePlugin"]
+        "ofxstatement": ["chebanca = ofxstatement.plugins.chebanca:CheBancaPlugin"]
     },
     install_requires=["ofxstatement"],
     include_package_data=True,
