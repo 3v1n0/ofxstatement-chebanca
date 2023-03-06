@@ -11,6 +11,7 @@ from ofxstatement.statement import (
     Statement,
     StatementLine,
     generate_transaction_id,
+    recalculate_balance,
 )
 
 from openpyxl import load_workbook
@@ -114,7 +115,70 @@ class CheBancaParser(StatementParser[str]):
         self._start_row = start_row + 1
         self._start_column = start_column
 
-        return super().parse()
+        for row in self._ws.iter_rows(min_row=1, max_row=self._start_row):
+            for cell in row:
+                if isinstance(cell.value, str) and "IBAN:" in cell.value:
+                    self.statement.account_id = row[cell.col_idx].value
+
+                if (
+                    isinstance(cell.value, str)
+                    and "Saldo disponibile:" in cell.value
+                    and not self.statement.end_balance
+                ):
+                    self.statement.end_balance = self.parse_value(
+                        row[cell.col_idx].value, "amount"
+                    )
+
+                if isinstance(cell.value, str) and "Saldo contabile:" in cell.value:
+                    self.statement.end_balance = self.parse_value(
+                        row[cell.col_idx].value, "amount"
+                    )
+
+                if isinstance(cell.value, str) and "Divisa:" in cell.value:
+                    self.statement.currency = (
+                        row[cell.col_idx].value.strip()
+                        if row[cell.col_idx].value
+                        else None
+                    )
+
+                if isinstance(cell.value, str) and "PERIODO:" in cell.value:
+                    splits = cell.value.split(": ", 1)[-1].split(" fino al ")
+                    if len(splits) > 1:
+                        if splits[0].startswith("dal "):
+                            self.statement.start_date = self.parse_value(
+                                splits[0][4:], "date"
+                            )
+                            self.statement.end_date = self.parse_value(
+                                splits[-1], "date"
+                            )
+
+        if self.statement.account_id:
+            logger.debug(f"Account ID: {self.statement.account_id}")
+
+        if self.statement.currency:
+            logger.debug(f"Currency: {self.statement.currency}")
+
+        statement = super().parse()
+
+        if statement.end_balance:
+            total_amount = sum(
+                [sl.amount for sl in statement.lines if sl.amount is not None], 0
+            )
+            statement.start_balance = statement.end_balance - total_amount
+
+        recalculate_balance(statement)
+
+        if self.statement.start_balance:
+            logger.debug(
+                f"Start balance: {self.statement.start_balance:0.2f} at {self.statement.start_date}"
+            )
+
+        if self.statement.end_balance:
+            logger.debug(
+                f"End balance: {self.statement.end_balance:0.2f} at {self.statement.end_date}"
+            )
+
+        return statement
 
     def split_records(self) -> Iterable[Iterable[Cell]]:
 
