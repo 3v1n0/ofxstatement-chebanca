@@ -17,6 +17,7 @@ setup(
     url="https://github.com/3v1n0/ofxstatement-chebanca",
     description=("CheBanca! plugin for ofxstatement"),
     long_description=long_description,
+    long_description_content_type="text/markdown",
     license="GPLv3",
     keywords=["ofx", "banking", "statement", "chebanca", "che-banca"],
     classifiers=[
