@@ -34,7 +34,10 @@ setup(
     package_dir={"": "src"},
     namespace_packages=["ofxstatement", "ofxstatement.plugins"],
     entry_points={
-        "ofxstatement": ["chebanca = ofxstatement.plugins.chebanca:CheBancaPlugin"]
+        "ofxstatement": [
+            "chebanca = ofxstatement.plugins.chebanca:CheBancaPlugin",
+            "chebanca-pdf = ofxstatement.plugins.chebanca_pdf:CheBancaPdfPlugin",
+        ],
     },
     install_requires=["ofxstatement"],
     include_package_data=True,

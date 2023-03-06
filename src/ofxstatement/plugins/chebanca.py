@@ -161,8 +161,9 @@ class CheBancaParser(StatementParser[str]):
         if self.statement.currency:
             logger.debug(f"Currency: {self.statement.currency}")
 
-        self._bank_account = BankAccount(bank_id="MICSITM1XXX",
-            acct_id=self.statement.account_id)
+        self._bank_account = BankAccount(
+            bank_id="MICSITM1XXX", acct_id=self.statement.account_id
+        )
 
         statement = super().parse()
 
