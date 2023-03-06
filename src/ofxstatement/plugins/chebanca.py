@@ -191,6 +191,9 @@ class CheBancaParser(StatementParser[str]):
         if currency:
             stat_line.currency = Currency(symbol=currency)
 
+        if stat_line.memo and stat_line.memo.startswith("RIF:"):
+            stat_line.refnum = stat_line.memo.split("RIF:", 1)[1].split(".")[0]
+
         stat_line.id = generate_transaction_id(stat_line)
 
         logging.debug(stat_line)
