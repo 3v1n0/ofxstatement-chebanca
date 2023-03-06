@@ -7,6 +7,7 @@ from typing import Any, Iterable, Optional
 from ofxstatement.plugin import Plugin
 from ofxstatement.parser import StatementParser
 from ofxstatement.statement import (
+    BankAccount,
     Currency,
     Statement,
     StatementLine,
@@ -158,6 +159,9 @@ class CheBancaParser(StatementParser[str]):
         if self.statement.currency:
             logger.debug(f"Currency: {self.statement.currency}")
 
+        self._bank_account = BankAccount(bank_id="MICSITM1XXX",
+            acct_id=self.statement.account_id)
+
         statement = super().parse()
 
         if statement.end_balance:
@@ -258,6 +262,7 @@ class CheBancaParser(StatementParser[str]):
         if stat_line.memo and stat_line.memo.startswith("RIF:"):
             stat_line.refnum = stat_line.memo.split("RIF:", 1)[1].split(".")[0]
 
+        stat_line.bank_account_to = self._bank_account
         stat_line.id = generate_transaction_id(stat_line)
 
         logging.debug(stat_line)
