@@ -35,6 +35,7 @@ TYPE_MAPPING = {
     "Bonifico dall'estero": "XFER",
     "Bonifico": "XFER",
     "Carta Credito.": "PAYMENT",
+    "cont. ATM": "ATM",
     "Delega Unica": "PAYMENT",
     "Disposizione di pagamento": "XFER",
     "Disposizione": "XFER",
@@ -47,6 +48,7 @@ TYPE_MAPPING = {
     "Pagamento tramite POS": "POS",
     "Prelievo Bancomat altri Istituti": "ATM",
     "Prelievo Bancomat": "ATM",
+    "Stipendio": "XFER",
     "Storno disposizione di pagamento": "XFER",
 }
 
