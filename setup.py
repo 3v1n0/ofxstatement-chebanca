@@ -39,7 +39,7 @@ setup(
             "chebanca-pdf = ofxstatement.plugins.chebanca_pdf:CheBancaPdfPlugin",
         ],
     },
-    install_requires=["ofxstatement"],
+    install_requires=["ofxstatement", "openpyxl"],
     include_package_data=True,
     zip_safe=True,
 )
