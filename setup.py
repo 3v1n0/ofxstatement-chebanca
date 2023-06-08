@@ -19,7 +19,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="GPLv3",
-    keywords=["ofx", "banking", "statement", "chebanca", "che-banca"],
+    keywords=["ofx", "banking", "statement", "chebanca", "che-banca", "che banca"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
