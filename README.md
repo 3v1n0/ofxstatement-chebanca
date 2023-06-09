@@ -22,14 +22,14 @@ Download your transactions file from the official bank's site and then run
 
 ### Loading Historical data
 
-This only supports the statements for the last year, however it's also possible
-to convert the old per-quarter statements that are available from the archive as
-PDF files.
+CheBanca website only allows to download the `xlsx` statements in for the last year,
+however it's also possible to get the old statement files in PDF format and convert
+these old per-quarter statements that are available from the archive.
 
 A plugin is provided that uses `poppler-util`'s `pdftotext` to easily generate
 machine parse-able data.
 
-This is an experimental plugin, that may not alwyas work but it can be used via:
+This is an experimental plugin, that may not always work but it can be used via:
 
     ofxstatement -d convert -t chebanca-pdf ./dir-containing-all-pdfs
     ofxstatement -d convert -t chebanca-pdf CheBanca-20-Q2.pdf
