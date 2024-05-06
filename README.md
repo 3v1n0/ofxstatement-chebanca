@@ -1,6 +1,7 @@
-# CheBanca! Plugin for [ofxstatement](https://github.com/kedder/ofxstatement/)
+# Mediobanca Premier (formerly CheBanca!) Plugin for [ofxstatement](https://github.com/kedder/ofxstatement/)
 
-Parses CheBanca! xslx statement files to be used with GNU Cash or HomeBank.
+Parses [Mediobanca Premier](https://mediobancapremier.com) (ex CheBanca!) xslx
+statement files to be used with GNU Cash or HomeBank.
 
 ## Installation
 
